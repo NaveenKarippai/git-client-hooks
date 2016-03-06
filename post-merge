@@ -14,7 +14,7 @@ FILE_TWO_CMD="bower install"
 modifiedFiles="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
 
 showChanges() {
-	echo "$modifiedFiles" | grep --quiet "$1" && echo "$2"
+  echo "$modifiedFiles" | grep --quiet "$1" && echo "$(tput setaf 1)$2 $(tput setab 7)$3 $(tput sgr 0)"
 }
 
 runChanges(){
@@ -22,8 +22,8 @@ runChanges(){
 }
 
 # show notifications if `FILE_ONE` or `FILE_TWO` was modified
-showChanges $FILE_ONE "run $FILE_ONE_CMD"
-showChanges $FILE_TWO "run $FILE_TWO_CMD"
+showChanges $FILE_ONE "run" "$FILE_ONE_CMD"
+showChanges $FILE_TWO "run" "$FILE_TWO_CMD"
 
 # run `FILE_ONE_CMD` or `FILE_TWO_CMD` if `FILE_ONE` or `FILE_TWO` was modified respectively
 #runChanges $FILE_ONE "$FILE_ONE_CMD"
