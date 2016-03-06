@@ -17,6 +17,10 @@ automatically after a `git pull` or `git pull --rebase`.
 Put git client hook scripts under .git/hooks/ subdirectory in your local repository.
 Run `chmod +x git-hook-script-name` to make it executable
 
+## asciicast
+
+<a href="https://asciinema.org/a/20as911m95ydwtmk0ptk12sfx"><img src="https://asciinema.org/a/20as911m95ydwtmk0ptk12sfx.png" width="836"/></a>
+
 ## Additional notes
 
 post-merge:
