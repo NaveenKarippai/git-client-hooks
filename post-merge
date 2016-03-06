@@ -1,0 +1,30 @@
+#!/bin/sh
+
+# git client hook to show/run a command after `git pull` if the specified file(s) was modified
+# Run `chmod +x post-merge` to make it executable and put it into `.git/hooks/` subdirectory
+
+# file names to watch for modifications
+FILE_ONE=package.json
+FILE_TWO=bower.json
+
+# commands to show/run for corresponding file names
+FILE_ONE_CMD="npm install"
+FILE_TWO_CMD="bower install"
+
+modifiedFiles="$(git diff-tree -r --name-only --no-commit-id ORIG_HEAD HEAD)"
+
+showChanges() {
+	echo "$modifiedFiles" | grep --quiet "$1" && echo "$2"
+}
+
+runChanges(){
+        echo "$modifiedFiles" | grep --quiet "$1" && eval "$2"
+}
+
+# show notifications if `FILE_ONE` or `FILE_TWO` was modified
+showChanges $FILE_ONE "run $FILE_ONE_CMD"
+showChanges $FILE_TWO "run $FILE_TWO_CMD"
+
+# run `FILE_ONE_CMD` or `FILE_TWO_CMD` if `FILE_ONE` or `FILE_TWO` was modified respectively
+#runChanges $FILE_ONE "$FILE_ONE_CMD"
+#runChanges $FILE_TWO "$FILE_TWO_CMD"
